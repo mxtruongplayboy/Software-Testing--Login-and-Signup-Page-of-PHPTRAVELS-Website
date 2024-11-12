@@ -5,7 +5,6 @@ from utils.web_driver import get_driver
 from pages.login_page import LoginPage
 
 def run_login_tests():
-    # Đọc dữ liệu từ file input
     data = read_excel(LOGIN_INPUT_FILE)
     results = []
 
@@ -14,19 +13,15 @@ def run_login_tests():
     login_page.load(URL_LOGIN_PAGE)
 
     for _, row in data.iterrows():
-        # Khởi tạo driver và trang login cho từng trường hợp
-        
-        
+
         username = row['username']
         password = row['password']
         expected = row['expected']
 
-        # Thực hiện đăng nhập và kiểm tra kết quả
         login_page.enter_username(username)
         login_page.enter_password(password)
         login_page.submit()
         
-        # Kiểm tra kết quả đăng nhập
         actual_result, exception = login_page.check_login_status()
         result = {
             'time': pd.Timestamp.now(),
@@ -44,6 +39,5 @@ def run_login_tests():
             login_page.load(URL_LOGIN_PAGE)
         
     driver.quit()
-    # Ghi kết quả vào file output sau khi hoàn thành tất cả trường hợp
     results_df = pd.DataFrame(results)
     write_excel(LOGIN_OUTPUT_FILE, results_df)

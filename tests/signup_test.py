@@ -5,7 +5,6 @@ from utils.web_driver import get_driver
 from pages.signup_page import SignUpPage
 
 def run_signup_tests():
-    # Đọc dữ liệu từ file input
     data = read_excel(SIGNUP_INPUT_FILE)
     results = []
 
@@ -23,7 +22,6 @@ def run_signup_tests():
         password = row['password']
         expected = row['expected']
 
-        # Thực hiện đăng nhập và kiểm tra kết quả
         signup_page.enter_firstname(firstname)
         signup_page.enter_lastname(lastname)
         signup_page.enter_country(country)
@@ -32,7 +30,6 @@ def run_signup_tests():
         signup_page.enter_password(password)
         signup_page.submit()
         
-        # Kiểm tra kết quả đăng nhập
         actual_result, exception = signup_page.check_signup_status()
         result = {
             'time': pd.Timestamp.now(),
@@ -53,7 +50,6 @@ def run_signup_tests():
             signup_page.load(URL_SIGNUP_PAGE)
         
     driver.quit()
-    # Ghi kết quả vào file output sau khi hoàn thành tất cả trường hợp
     results_df = pd.DataFrame(results)
     write_excel(SIGNUP_OUTPUT_FILE, results_df)
 

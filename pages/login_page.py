@@ -1,6 +1,5 @@
 import time
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
 from config.settings import URL_HOME_PAGE
 from utils.get_error_message import get_error_message
 
@@ -10,6 +9,7 @@ class LoginPage:
 
     def load(self, url):
         self.driver.get(url)
+        time.sleep(2)
 
     def enter_username(self, username):
         email_field = self.driver.find_element(By.ID, 'email')
@@ -40,6 +40,5 @@ class LoginPage:
                     error_message = get_error_message(self.driver)
                     return 'Login Fail', error_message
         except Exception as e:
-            # Trường hợp gặp lỗi trong quá trình kiểm tra
             return 'Login Fail', str(e)
 
