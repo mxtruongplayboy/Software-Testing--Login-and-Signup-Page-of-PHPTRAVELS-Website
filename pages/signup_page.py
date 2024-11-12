@@ -62,19 +62,22 @@ class SignUpPage:
                     error_message = get_error_message(self.driver)
                     return 'Signup Fail', error_message
                 else:
-                    fields_to_check = ['firstname', 'last_name', 'phone', 'user_email', 'password']
-                    for field_id in fields_to_check:
+                    fields_to_check_first = ['firstname', 'last_name', 'country', 'phone', 'user_email', 'password']
+                    for field_id in fields_to_check_first:
                         try:
-                            field = self.driver.find_element(By.ID, field_id)
-                            validation_message = field.get_attribute("validationMessage")
-                            if validation_message:
-                                return 'Signup Fail', f"{field_id}: {validation_message}"
+                            if field_id == 'country':
+                                search_field = self.driver.find_element(By.CLASS_NAME, "selectpicker")
+                                validation_message = search_field.get_attribute("validationMessage")
+                                if validation_message:
+                                    return 'Signup Fail', f"country: {validation_message}"
+                            else:
+                                field = self.driver.find_element(By.ID, field_id)
+                                validation_message = field.get_attribute("validationMessage")
+                                if validation_message:
+                                    return 'Signup Fail', f"{field_id}: {validation_message}"
                         except:
                             continue
-                    search_field = self.driver.find_element(By.CLASS_NAME, "selectpicker")
-                    validation_message = search_field.get_attribute("validationMessage")
-                    if validation_message:
-                        return 'Signup Fail', f"country: {validation_message}"
+                    
                     error_message = get_error_message(self.driver)
                     return 'Signup Fail', error_message
         except Exception as e:

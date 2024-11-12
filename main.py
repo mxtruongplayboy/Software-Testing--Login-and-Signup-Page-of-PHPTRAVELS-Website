@@ -3,8 +3,8 @@ from tests.signup_test import run_signup_tests
 
 def main():
     print("Starting test...")
-    run_login_tests()
-    # run_signup_tests()
+    # run_login_tests()
+    run_signup_tests()
     print("completed.")
 
 if __name__ == '__main__':
