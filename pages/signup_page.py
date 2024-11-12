@@ -1,7 +1,6 @@
 import time
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.support import expected_conditions as EC
 from config.settings import URL_SIGNUP_SUCCESS_PAGE
 from utils.get_error_message import get_error_message
 
